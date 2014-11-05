@@ -8,7 +8,7 @@ body, html{
 
 .worldMap{
 	width: 100%;
-	max-width:186vh; 
+	max-width:calc(200vh - 50px);
 	position: relative;	
 	margin: 0 auto;
 	-moz-user-select: none;             
@@ -119,8 +119,8 @@ button:hover {
 .topBar{
 	position: relative;	
 	background-color: #dda185;
-	max-width:186vh;
-	height: 7vh;
+	max-width: calc(200vh - 50px);
+	height: 25px;
 	margin: 0 auto;
 	font-size: 18px;
 	font-family:arial;
