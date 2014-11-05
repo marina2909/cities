@@ -1,39 +1,61 @@
 $(document).ready(function(){
+	
+	var POINTS = 20000;
 	var state = {
 		clicked: 1,
 		questionNumber: 0,
 		questionIndex: 0, 
-		pointsLeft: 20000
+		pointsLeft: POINTS
 	};
 	
 	var animationDuration = 2000;
 	var worldmap = WorldMap();
 	var infoBox = InfoBox();
 	var topbar = TopBar();
+	var finish = Finish();
 	
 	$(".startBox button").click(function(ev){
-		topbar.setText(getCityQuestion());
-		topbar.setPoints(state.pointsLeft);
-		state.clicked = 0;
+		topbar.setQuestion(getCityQuestion());
+		topbar.setPointsMsg(state.pointsLeft);	
+		state.clicked = 0;	
 		$(".startBox").hide();
 	});
 	
-	infoBox.setActionOnNext(function(){
-		worldmap.clean();
-		topbar.setText(getCityQuestion());
-		state.clicked = 0;
+	worldmap.setOnClick(function(lat, lon){
+		onMapClick(lat, lon);
 	});
+	
+	infoBox.setActionOnNext(function(){
+		if (finish.isFinished(state.pointsLeft)){
+			topbar.clean();
+			infoBox.hideBox();
+			finish.finishGame(state.questionNumber);
+		} else {
+			worldmap.clean();
+			topbar.setQuestion(getCityQuestion());
+			topbar.stopPointsAnimate(state.pointsLeft);
+			state.clicked = 0;
+		}
+	});
+	
+	finish.actionOnStart(function(){	
+		state.questionNumber = 0;
+		state.pointsLeft = POINTS;
+		state.clicked = 0;
+		
+		worldmap.clean();
+		topbar.clean();
+		topbar.setQuestion(getCityQuestion());
+		topbar.setPointsMsg(state.pointsLeft);		
+	});
+
 
 	function getCityQuestion(){
 		state.randomQ = Math.floor(Math.random() * cities.length);
 		state.questionNumber = ++state.questionNumber;
 		var cityName = cities[state.randomQ].name;
-		return state.questionNumber + " Mark " + cityName;
+		return state.questionNumber + ". Mark " + cityName;
 	}
-	
-	worldmap.setOnClick(function(lat, lon){
-		onMapClick(lat, lon);
-	});
 	
 	function onMapClick(lat, lon){
 		if (state.clicked == 1) return;
@@ -57,13 +79,13 @@ $(document).ready(function(){
 		
 		var resultBoxPosition = getResultBoxPosition(guessGeoCoord.lon, cityGeoCoord.lon);
 		infoBox.showBox(resultBoxPosition);
-		infoBox.setDistanceAndAnimate(distance, city.name, animationDuration);
+		infoBox.setDistanceAndAnimate(distance, city.name, city.country, animationDuration);
 		
 		var pointsBefore = state.pointsLeft;
 		state.pointsLeft = state.pointsLeft - distance;
 		topbar.setPointsAndAnimate(pointsBefore, state.pointsLeft, animationDuration);
-		
 		state.clicked = 1;	
+		
 	}	
 	
 	function getResultBoxPosition(lon1, lon2){

@@ -1,32 +1,39 @@
 function TopBar(){
-	var element = $(".questionLine");
+	var element = $(".topBar");
+	var animate = new Animate();
 	
-	function setText(text){
+	function setQuestion(text){
 		element.find(".question").html(text);	
 	}
 	
-	function setPoints(val){
-		var p = element.find(".points").html(val);
+	function setPointsMsg(val){
+		element.find(".pointsLeft").html("Points left: ");
+		element.find(".points").html(val);
 	}
 	
-	function setPointsAndAnimate(val0, val1, duration, f){
+	function setPointsAndAnimate(val0, val1, duration){
 		var p = element.find(".points");
-		var t0 = new Date();
-		var interval = setInterval(function(){ 
-			var dT = new Date() - t0;
-			var val = val0 + (val1 - val0) * dT / duration;
-			if (dT > duration){
-				val = val1;
-				clearInterval(interval);
-			}
-			f();
-			p.html(Math.round(val));
-		}, 50);
+		animate.run(val0, val1, duration, function(val){
+			p.html(Math.round(val < 0 ? 0 : val));
+		})
+	}
+	
+	function stopPointsAnimate(val){
+		animate.stop();
+		setPointsMsg(val);
+	}
+	
+	function clean(){
+		element.find(".question").empty();
+		element.find(".pointsLeft").empty();
+		element.find(".points").empty();
 	}
 	
 	return {
-		setText: setText,
+		setQuestion: setQuestion,
 		setPointsAndAnimate: setPointsAndAnimate,
-		setPoints: setPoints
+		stopPointsAnimate: stopPointsAnimate,
+		setPointsMsg: setPointsMsg,
+		clean: clean
 	};
 }

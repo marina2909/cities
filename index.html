@@ -1,5 +1,6 @@
 <!DOCTYPE html> 
-<html>	<head>
+<html>	
+	<head>
 		<meta charset="utf-8">
 		<title>Cities</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
@@ -11,11 +12,15 @@
 		<script src="infobox.js"></script>
 		<script src="topbar.js"></script>
 		<script src="animate.js"></script>
+		<script src="finish.js"></script>
 	</head>
 	<body>
-		<div class="questionLine">
+		<div class="topBar">
 			<span class="question"></span>
-			<span class="points"></span>
+			<div class="pointsMsg">
+				<span class="pointsLeft"></span>
+				<span class="points"></span>
+			</div>
 		</div>
 		<div class="worldMap">
 			<img src="map.png"/>
@@ -24,14 +29,22 @@
 			<div class="markerGreen"></div>
 		</div>	
 		<div class="startBox">
-			<button class="next">Start</button>
+			<button>Start</button>
 		</div>
 		<div class="infoBox">
 			<div class="infoText">Distance to 
 				<span class="city"></span> is 
-				<span class="distance"></span> km
+				<span class="distance"></span> km	
 			</div>
+			<div class="country"></div>
 			<button>Next</button>
-		</div>		
+		</div>
+		<div class="finishBox">
+			<div class="totalCitiesTxt">
+				Total cities: <span class="totalCities"></span>
+			</div>
+			<div>Click Start to play again</div>
+			<button>Start</button>			
+		</div>
 	</body>
 </html>

@@ -133,7 +133,7 @@ function WorldMap(){
 		var topY = getYFromLat(lat)/ $(".worldMap").height() * 100;
 		var leftX = getXFromLon(lon) / $(".worldMap").width() * 100;
 		var topPer = 'calc(' + topY  + '% - ' + (marker.height() - 1) + 'px)';
-		var leftPer = 'calc(' + leftX + '% - ' + (marker.width() / 2) + 'px)';
+		var leftPer = 'calc(' + leftX + '% - ' + (marker.width() / 2 -1) + 'px)';
 		marker.css({top: topPer, left: leftPer, 'margin-top': '-20%'});
 		marker.show().animate({'margin-top': 0},'fast');
 	
