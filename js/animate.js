@@ -1,5 +1,5 @@
 function Animate(){
-	var interval = 0;
+	var interval;
 	
 	function run(val0, val1, duration, f){
 		var t0 = new Date();

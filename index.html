@@ -3,47 +3,58 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Cities</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<script src="d3/d3.v3.js"></script>
-		<script src="jquery-2.1.1.js"></script>
-		<script src="main.js"></script>
-		<script src="worldmap.js"></script>
-		<script src="cities.js"></script>
-		<script src="infobox.js"></script>
-		<script src="topbar.js"></script>
-		<script src="animate.js"></script>
-		<script src="finish.js"></script>
+		<script src="jquery/jquery-2.1.1.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/worldmap.js"></script>
+		<script src="js/cities.js"></script>
+		<script src="js/infobox.js"></script>
+		<script src="js/topbar.js"></script>
+		<script src="js/animate.js"></script>
+		<script src="js/finishbox.js"></script>
 	</head>
 	<body>
+		<div class="shadow"></div>
 		<div class="topBar">
 			<span class="question"></span>
-			<div class="pointsMsg">
-				<span class="pointsLeft"></span>
-				<span class="points"></span>
+			<div class="creditsMsg">
+				<span class="creditsLabel"></span>
+				<span class="credits"></span>
 			</div>
 		</div>
 		<div class="worldMap">
-			<img src="map.png"/>
-			<svg preserveAspectRatio="xMaxYMax meet" viewBox="0 0 1000 500"></svg> 
+			<img src="images/map.png"/>
+			<svg preserveAspectRatio="xMaxYMax meet" viewBox="0 0 1000 500">
+				<defs>
+					<clipPath id="clip">
+						<rect x="0" y="0" width="1000" height="500" />
+					</clipPath>
+				</defs>
+			</svg> 
 			<div class="markerRed"></div>
 			<div class="markerGreen"></div>
 		</div>	
-		<div class="startBox">
+		<div class="startBox box">
+			<div class="title">Guess the cities</div>
+			<div class="boxText">Mark the maximum number of the cities in the world</div>
 			<button>Start</button>
 		</div>
-		<div class="infoBox">
-			<div class="infoText">Distance to 
-				<span class="city"></span> is 
+		<div class="infoBox box">
+			<div class="boxText">Distance to<br/>
+				<span class="city"></span>
+				<br/>is<br/> 
 				<span class="distance"></span> km	
-			</div>
-			<div class="country"></div>
+				<div class="country"></div>
+			</div>	
 			<button>Next</button>
 		</div>
-		<div class="finishBox">
-			<div class="totalCitiesTxt">
+		<div class="finishBox box">
+			<div class="boxText">
 				Total cities: <span class="totalCities"></span>
-			</div>
-			<div>Click Start to play again</div>
+				<br/>
+				<div>Click Start to play again</div>
+			</div>	
 			<button>Start</button>			
 		</div>
 	</body>

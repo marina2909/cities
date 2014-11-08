@@ -1,23 +1,22 @@
 function InfoBox(){
 
-	var onWriteText = function(distance, infoBox, text){};
-	var actionOnNext = function(){};
 	var element = $(".infoBox");
-	var animate = new Animate();
+	var actionOnNext = function(){};
+	var animate = Animate();
 	
 	element.find("button").click(function(){
 		actionOnNext();	
 		hideBox();
 	});
 	
-	function showBox(x){
-		var xPer = ((x - element.width() / 2) / $(window).width()) * 100;
-		element.css({'left': xPer + '%'});
-		element.fadeIn(100);
+	function showBox(xMid){
+		var xPer = xMid / $(window).width() * 100;
+		element.css({'left': 'calc('+ xPer + '% - '+ (element.width() / 2)+'px)'});
+		element.fadeIn(500);
 	}	
 	
 	function hideBox(){
-		element.hide().css({'left': 0});
+		element.hide();
 		element.find(".city").empty();
 		element.find(".distance").empty();
 	}
@@ -38,6 +37,9 @@ function InfoBox(){
 		setDistanceAndAnimate: setDistanceAndAnimate,
 		setActionOnNext: function(handler){
 			actionOnNext = handler;
+		},
+		isVisible: function(){
+			return element.is(":visible");
 		}
-	}
+	};
 }

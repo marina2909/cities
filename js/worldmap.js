@@ -1,19 +1,20 @@
 function WorldMap(){
 	
+	var element = $(".worldMap");
 	var PI = Math.PI;
 	var svg = d3.select(".worldMap svg");	
-	var onMapClick = function(lat, lon){};
+	var onMapClick = function(){};
 	
-	$(".worldMap").click(function (e) { 	
-		var clickedPixelCoord = { x : e.offsetX, y : e.offsetY};
+	element.click(function (e) { 	
+		var clickedPixelCoord = { x : e.clientX - element.offset().left, y : e.clientY - element.offset().top};
 		var clickedGeoCoord = getGeoFromPixel(clickedPixelCoord);
-		onMapClick(clickedGeoCoord.lat, clickedGeoCoord.lon);
+		onMapClick(clickedGeoCoord);
 	});
 
 	function getGeoFromPixel(t){
 		return {
-			lon : 2 * PI * t.x / $(".worldMap").width() - PI,
-			lat : PI / 2 - PI * t.y / $(".worldMap").height()
+			lon : 2 * PI * t.x / element.width() - PI,
+			lat : PI / 2 - PI * t.y / element.height()
 		};
 	}
 	
@@ -26,11 +27,11 @@ function WorldMap(){
 	};
 	
 	function getXFromLon(lon){
-		return (lon + PI) * $(".worldMap").width() / (2 * PI);
+		return (lon + PI) * element.width() / (2 * PI);
 	};
 	
 	function getYFromLat(lat){
-		return (PI / 2 - lat) * $(".worldMap").height() / PI ;
+		return (PI / 2 - lat) * element.height() / PI ;
 	};
 	
 	function calculateCurveAndDraw(p1, p2, duration){
@@ -40,7 +41,7 @@ function WorldMap(){
 		if (Math.abs(dLon) > PI){
 			
 			// 1st part of curve
-			var sign = Math.sign(dLon);
+			var sign = dLon >= 0 ? 1 : -1;
 			var p22 = {
 				lon: p2.lon + 2*PI*sign,
 				lat: p2.lat
@@ -105,8 +106,8 @@ function WorldMap(){
 						.attr("d", lineFunction(lineData))
 						.attr("stroke", "#0c2766")
 						.attr("stroke-width", 2)
-						.attr("fill", "none");
-									
+						.attr("fill", "none")
+						.attr("clip-path", "url(#clip)");
 
 		var totalLength = lineGraph.node().getTotalLength();
 		lineGraph.attr("stroke-dasharray", totalLength + " " + totalLength)
@@ -129,9 +130,9 @@ function WorldMap(){
 	}
 	
 	function showMarker(lat, lon, color){
-		var marker = $(".marker"+color);
-		var topY = getYFromLat(lat)/ $(".worldMap").height() * 100;
-		var leftX = getXFromLon(lon) / $(".worldMap").width() * 100;
+		var marker = $(".marker" + color);
+		var topY = getYFromLat(lat) / element.height() * 100;
+		var leftX = getXFromLon(lon) / element.width() * 100;
 		var topPer = 'calc(' + topY  + '% - ' + (marker.height() - 1) + 'px)';
 		var leftPer = 'calc(' + leftX + '% - ' + (marker.width() / 2 -1) + 'px)';
 		marker.css({top: topPer, left: leftPer, 'margin-top': '-20%'});
@@ -142,7 +143,7 @@ function WorldMap(){
 	function clean(){
 		svg.selectAll("path").remove();
 		$(".markerRed").fadeOut(100).offset({top: 0, left: 0});
-		$(".markerGreen").fadeOut(100).offset({ top: 0, left: 0});
+		$(".markerGreen").fadeOut(100).offset({top: 0, left: 0});
 	}
 
 	return {

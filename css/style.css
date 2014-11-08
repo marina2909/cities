@@ -1,0 +1,159 @@
+body, html{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../images/space.jpg");
+	overflow: hidden;
+}
+
+.shadow{
+	width: calc(200vh - 80px);
+	height: 100vh;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 0px 0px 50px 5px white;
+	border-radius: 6px;
+}
+
+.worldMap{
+	width: 100%;
+	max-width:calc(200vh - 80px);
+	position: relative;	
+	margin: 0 auto;
+	-moz-user-select: none;             
+	-webkit-user-select: none; 
+	-ms-user-select: none;
+}
+
+.worldMap img{
+	width: 100%;
+	display: block;
+	border-radius: 0px 0px 6px 6px;
+}
+
+.worldMap svg{
+	position: absolute;
+	width: 100%;
+	height:100%;
+	top:0;
+	left:0;
+}
+
+.boxText{
+	margin: 40px 30px;
+	text-align: center;
+	font-size: 23px;
+	color: black;
+	font-family: arial;
+	font-weight: bold;
+}
+
+.box{
+	background-color: #c5c7c2;
+	position: absolute;
+	border-radius: 6px;
+	box-shadow: 0px 0px 50px black;
+}
+
+.box button{
+	background-color: #0c2766;
+	border-radius: 6px;
+	border: 0px;
+	cursor: pointer;
+	font-family: arial;
+	font-size: 24px;
+	font-weight: bold;
+	position: relative;
+	width: 180px;
+	height: 50px;
+	background-color: #ab3334;
+	color: #e8d1a4;
+	left: calc(50% - 90px);
+	margin-bottom: 40px;
+}
+
+button:hover {
+	background-color:#331919;
+	color:#e8d1a4;
+}
+
+.startBox{
+	width: 420px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.title{
+	margin-top: 30px;
+	text-align: center;
+	font-size: 36px;
+	color: #ab3334;
+	font-family: arial;
+	font-weight: bold;
+	text-shadow: 0px 2px 0px white;
+}
+
+.infoBox{
+	display: none;
+	width:300px;
+	top: 50%;
+	transform: translate(0%, -50%);
+}
+
+.infoBox .country{
+	text-align: center;
+	margin-top: 15px;
+}
+
+.topBar{
+	position: relative;	
+	background-color: #c5c7c2;
+	max-width: calc(200vh - 80px);
+	height: 40px;
+	line-height: 40px;
+	margin: 0 auto;
+	font-size: 18px;
+	font-family:arial;
+	font-weight: bold;
+	color: #331919;
+	border-radius: 6px 6px 0px 0px;
+}
+.topBar .question{
+	margin-left: 20px;
+}
+
+.topBar .creditsMsg{
+	float:right;
+	margin-right: 20px;
+}
+
+.markerRed{
+	background-image: url('../images/markerRed.png');
+	background-repeat: no-repeat;
+	height:24px;
+	width:14px;
+	position: absolute;
+	display: none;
+}
+
+.markerGreen{
+	background-image: url('../images/markerGreen.png');
+	background-repeat: no-repeat;
+	height:24px;
+	width:14px;
+	position: absolute;
+	display: none;
+}
+
+.finishBox{
+	display: none;
+	width: 420px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+

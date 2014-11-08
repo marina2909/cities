@@ -1,4 +1,4 @@
-function Finish(){
+function FinishBox(){
 
 	var element = $(".finishBox");
 	var actionOnStart = function(){};
@@ -8,22 +8,18 @@ function Finish(){
 		actionOnStart();
 	});
 
-	function finishGame(totalCities){
-		element.find(".totalCities").html(--totalCities);
+	function show(totalCities){
+		element.find(".totalCities").html(totalCities);
 		element.show();
-	}
-	
-	function isFinished(points){
-		if (points < 0){
-			return true;
-		}	
 	}
 
 	return {
-		finishGame: finishGame,
-		isFinished: isFinished,
+		show: show,
 		actionOnStart: function(handler){
 			actionOnStart = handler;
+		},
+		isVisible: function(){
+			return element.is(":visible");
 		}
 	}
 }
