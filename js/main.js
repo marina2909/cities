@@ -5,18 +5,19 @@ $(document).ready(function(){
 	
 	var gameState = {
 		questionNumber: 0,
-		credits: initialCredits,
-		city: null
+		credits: initialCredits
 	};
-	
 	
 	var worldmap = WorldMap();
 	var infobox = InfoBox();
 	var topbar = TopBar(initialCredits);
 	var finishbox = FinishBox();
+	var cities = c.slice(0);
+	
 	
 	var startbox = $(".startBox");
 	startbox.find("button").click(function(ev){
+		randomPermutate();
 		topbar.setQuestion(getCityQuestion());
 		topbar.setPoints(gameState.credits);	
 		startbox.hide();
@@ -37,6 +38,7 @@ $(document).ready(function(){
 	});
 	
 	finishbox.actionOnStart(function(){	
+		randomPermutate()
 		gameState.questionNumber = 0;
 		gameState.credits = initialCredits;
 		
@@ -48,22 +50,22 @@ $(document).ready(function(){
 
 
 	function getCityQuestion(){
-		var randomQ = Math.floor(Math.random() * cities.length);
-		gameState.city = cities[randomQ];
-		return (++gameState.questionNumber) + ". "+ gameState.city.name;
+		return (gameState.questionNumber + 1) + ". "+ cities[gameState.questionNumber].name;
 	}
 	
 	function onMapClick(guessGeoCoord){
 		if (startbox.is(":visible") || infobox.isVisible() || finishbox.isVisible()) return;
 		
-		var city = gameState.city;
+		var city = cities[gameState.questionNumber];
 		var cityGeoCoord = {
 			lat: city.latitude * Math.PI / 180, 
 			lon: city.longitude * Math.PI / 180
 		};
 		
-		worldmap.showMarker(guessGeoCoord.lat, guessGeoCoord.lon, "Red");
-		worldmap.showMarker(cityGeoCoord.lat, cityGeoCoord.lon, "Green");
+		var onTop = guessGeoCoord.lat < cityGeoCoord.lat;
+		worldmap.showMarker(guessGeoCoord.lat, guessGeoCoord.lon, "Red", onTop);
+		worldmap.showMarker(cityGeoCoord.lat, cityGeoCoord.lon, "Green", !onTop);
+	
 		
 		worldmap.calculateCurveAndDraw(guessGeoCoord, cityGeoCoord, animationDuration);
 		var distance = worldmap.calculateCurveLength(guessGeoCoord, cityGeoCoord);
@@ -75,6 +77,7 @@ $(document).ready(function(){
 		gameState.credits = gameState.credits - distance;
 		topbar.setPoints(gameState.credits, animationDuration);
 		
+		++gameState.questionNumber;
 	}	
 	
 	function getResultBoxPositionX(lon1, lon2){
@@ -93,6 +96,16 @@ $(document).ready(function(){
 	
 	function getMid(xa, xb, width){
 		return xa>width-xb ? xa/2 : (xb+width)/2;
+	}
+	
+	function randomPermutate(){
+		for (i=0; i < cities.length; i++){
+			var random = Math.floor(Math.random() * i);
+			
+			var t = cities[random];
+			cities[random] = cities[i];
+			cities[i] = t;
+		}
 	}
 		
 });

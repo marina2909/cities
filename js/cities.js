@@ -1,4 +1,4 @@
-var cities =
+var c =
 [
   {
     "name":"Kabul",

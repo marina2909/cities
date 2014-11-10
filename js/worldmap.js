@@ -129,21 +129,21 @@ function WorldMap(){
 		return Math.round(d);
 	}
 	
-	function showMarker(lat, lon, color){
+	function showMarker(lat, lon, color, onTop){
 		var marker = $(".marker" + color);
 		var topY = getYFromLat(lat) / element.height() * 100;
 		var leftX = getXFromLon(lon) / element.width() * 100;
 		var topPer = 'calc(' + topY  + '% - ' + (marker.height() - 1) + 'px)';
 		var leftPer = 'calc(' + leftX + '% - ' + (marker.width() / 2 -1) + 'px)';
-		marker.css({top: topPer, left: leftPer, 'margin-top': '-20%'});
+		marker.css({top: topPer, left: leftPer, 'margin-top': '-20%', 'zIndex': +onTop+1});
 		marker.show().animate({'margin-top': 0},'fast');
 	
 	}
 	
 	function clean(){
 		svg.selectAll("path").remove();
-		$(".markerRed").fadeOut(100).offset({top: 0, left: 0});
-		$(".markerGreen").fadeOut(100).offset({top: 0, left: 0});
+		$(".markerRed").hide().offset({top: 0, left: 0});
+		$(".markerGreen").hide().offset({top: 0, left: 0});
 	}
 
 	return {
