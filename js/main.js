@@ -38,7 +38,7 @@ $(document).ready(function(){
 	});
 	
 	finishbox.actionOnStart(function(){	
-		randomPermutate()
+		randomPermutate();
 		gameState.questionNumber = 0;
 		gameState.credits = initialCredits;
 		
@@ -74,7 +74,7 @@ $(document).ready(function(){
 		infobox.showBox(resultBoxPosition);
 		infobox.setDistanceAndAnimate(distance, city.name, city.country, animationDuration);
 		
-		gameState.credits = gameState.credits - distance;
+		gameState.credits = gameState.credits - Math.min(5001, distance);
 		topbar.setPoints(gameState.credits, animationDuration);
 		
 		++gameState.questionNumber;
