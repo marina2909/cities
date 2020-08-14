@@ -1,7 +1,7 @@
 Guess the City
 =========================
 
-Small game where you can have fun guessing city positions on the map and learn something along the way. You can try this game at [Guess the cities](http://www.marinasovic.com/cities/).
+Small game where you can have fun guessing city positions on the map and learn something along the way.
 
 Getting started
 ---------------
